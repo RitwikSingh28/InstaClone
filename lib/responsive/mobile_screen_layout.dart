@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insta_clone/screens/login_screen.dart';
 
 class MobileScreen extends StatelessWidget {
   const MobileScreen({super.key});
@@ -6,7 +7,7 @@ class MobileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Text("Mobile Screen"),
+      body: LoginScreen(),
     );
   }
 }
