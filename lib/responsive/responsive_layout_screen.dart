@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:insta_clone/screens/login_screen.dart';
+import 'package:insta_clone/screens/signup_screen.dart';
 import 'package:insta_clone/utils/dimensions.dart';
 
 class ResponsiveLayout extends StatelessWidget {
@@ -13,13 +15,14 @@ class ResponsiveLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth > webScreenSize) {
-        //web screen layout
-        return webScreenLayout;
-      } else {
-        //mobile screen layout
-        return mobileScreenLayout;
-      }
+      // if (constraints.maxWidth > webScreenSize) {
+      //   //web screen layout
+      //   return webScreenLayout;
+      // } else {
+      //   //mobile screen layout
+      //   return mobileScreenLayout;
+      // }
+      return const SignUpScreen();
     });
   }
 }
