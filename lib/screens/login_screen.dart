@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:insta_clone/resources/auth_methods.dart';
+import 'package:insta_clone/screens/signup_screen.dart';
 import 'package:insta_clone/utils/colors.dart';
+import 'package:insta_clone/utils/utils.dart';
 import 'package:insta_clone/widgets/text_field_widget.dart';
+
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_layout_screen.dart';
+import '../responsive/web_screen_layout.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,6 +20,34 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
+
+  void loginUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().loginUser(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim());
+
+    print(res);
+    setState(() {
+      _isLoading = false;
+    });
+    if (res != "success") {
+      showSnackBar(context, res);
+    } else {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+              mobileScreenLayout: MobileScreen(),
+              webScreenLayout: WebScreen())));
+    }
+  }
+
+  void navigateToSignup() {
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const SignUpScreen()));
+  }
 
   @override
   void dispose() {
@@ -57,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 24,
             ),
             InkWell(
+              onTap: loginUser,
               child: Container(
                 width: double.infinity,
                 alignment: Alignment.center,
@@ -66,7 +102,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(4)),
                     )),
-                child: const Text("Login"),
+                child: _isLoading
+                    ? const Center(
+                        child: CircularProgressIndicator(color: primaryColor),
+                      )
+                    : const Text("Login"),
               ),
             ),
             const SizedBox(
@@ -81,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: const Text("Don't have an account"),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: navigateToSignup,
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 3),

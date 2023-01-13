@@ -7,6 +7,19 @@ class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _fs = FirebaseFirestore.instance;
 
+  //login user
+  Future<String> loginUser(
+      {required String email, required String password}) async {
+    String result = "Failed to login";
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      result = "success";
+    } catch (err) {
+      result = err.toString();
+    }
+    return result;
+  }
+
   //sign up user
   Future<String> signUpUser(
       {required String email,
