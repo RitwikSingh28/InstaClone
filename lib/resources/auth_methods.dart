@@ -9,6 +9,15 @@ class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _fs = FirebaseFirestore.instance;
 
+  Future<CustomUser> getUserDetails() async {
+    User currentUser = _auth.currentUser!;
+
+    DocumentSnapshot snap =
+        await _fs.collection("users").doc(currentUser.uid).get();
+
+    return CustomUser.fromSnap(snap);
+  }
+
   //login user
   Future<String> loginUser(
       {required String email, required String password}) async {
