@@ -7,6 +7,8 @@ import 'package:insta_clone/utils/colors.dart';
 import 'package:insta_clone/utils/utils.dart';
 import 'package:provider/provider.dart';
 
+import '../resources/firestore_methods.dart';
+
 class AddPost extends StatefulWidget {
   const AddPost({super.key});
 
@@ -17,6 +19,7 @@ class AddPost extends StatefulWidget {
 class _AddPostState extends State<AddPost> {
   final TextEditingController _descController = TextEditingController();
   Uint8List? _file;
+  bool _isLoading = false;
 
   _selectImage(BuildContext context) async {
     return showDialog(
@@ -46,6 +49,13 @@ class _AddPostState extends State<AddPost> {
                   _file = file;
                 });
               },
+            ),
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(20),
+              child: const Text('Cancel'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+              },
             )
           ],
         );
@@ -53,10 +63,38 @@ class _AddPostState extends State<AddPost> {
     );
   }
 
+  void postImage(String uid, String username, String profImage) async {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      String res = await FirestoreMethods().uploadPost(
+          _file!, _descController.text.trim(), uid, username, profImage);
+
+      setState(() {
+        _isLoading = false;
+      });
+      if (res == "success") {
+        showSnackBar(context, "Posted!");
+        clearImage();
+      } else {
+        showSnackBar(context, res);
+      }
+    } catch (err) {
+      showSnackBar(context, err.toString());
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
     _descController.dispose();
+  }
+
+  void clearImage() {
+    setState(() {
+      _file = null;
+    });
   }
 
   @override
@@ -73,11 +111,15 @@ class _AddPostState extends State<AddPost> {
         : Scaffold(
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
-              leading: const Icon(Icons.arrow_back_ios),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back_ios),
+                onPressed: clearImage,
+              ),
               title: const Text("Post to"),
               actions: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () =>
+                      postImage(user.uid, user.userName, user.photoUrl),
                   child: const Text(
                     'Post',
                     style: TextStyle(
@@ -91,6 +133,10 @@ class _AddPostState extends State<AddPost> {
             ),
             body: Column(
               children: [
+                _isLoading
+                    ? const LinearProgressIndicator()
+                    : const Padding(padding: EdgeInsets.only(top: 0)),
+                const Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
