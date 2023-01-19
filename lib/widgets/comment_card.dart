@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:insta_clone/models/user_model.dart';
+import 'package:insta_clone/providers/user_provider.dart';
 import 'package:insta_clone/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 class CommentCard extends StatefulWidget {
   const CommentCard({super.key});
