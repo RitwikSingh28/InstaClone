@@ -4,6 +4,7 @@ import 'package:insta_clone/models/user_model.dart';
 import 'package:insta_clone/providers/user_provider.dart';
 import 'package:insta_clone/screens/add_posts_screen.dart';
 import 'package:insta_clone/screens/feed_screen.dart';
+import 'package:insta_clone/screens/search_screen.dart';
 import 'package:insta_clone/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +47,7 @@ class _MobileScreenState extends State<MobileScreen> {
         physics: const NeverScrollableScrollPhysics(),
         children: const [
           PostFeed(),
-          Text('Search'),
+          SearchScreen(),
           AddPost(),
           Text('Notifications'),
           Text('Profile'),
