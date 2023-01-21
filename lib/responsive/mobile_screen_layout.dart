@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:insta_clone/models/user_model.dart';
@@ -46,12 +47,14 @@ class _MobileScreenState extends State<MobileScreen> {
           _page = value;
         }),
         physics: const NeverScrollableScrollPhysics(),
-        children: const [
-          PostFeed(),
-          SearchScreen(),
-          AddPost(),
-          Text('Notifications'),
-          ProfileScreen(),
+        children: [
+          const PostFeed(),
+          const SearchScreen(),
+          const AddPost(),
+          const Text('Notifications'),
+          ProfileScreen(
+            uid: FirebaseAuth.instance.currentUser!.uid,
+          ),
         ],
       ),
       bottomNavigationBar: CupertinoTabBar(
