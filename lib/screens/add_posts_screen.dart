@@ -119,7 +119,7 @@ class _AddPostState extends State<AddPost> {
               actions: [
                 TextButton(
                   onPressed: () =>
-                      postImage(user.uid, user.userName, user.photoUrl),
+                      postImage(user.uid, user.username, user.photoUrl),
                   child: const Text(
                     'Post',
                     style: TextStyle(

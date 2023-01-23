@@ -35,14 +35,14 @@ class AuthMethods {
   Future<String> signUpUser(
       {required String email,
       required String password,
-      required String userName,
+      required String username,
       required String bio,
       required Uint8List file}) async {
     String res = "An error occured";
     try {
       if (email.isNotEmpty &&
           password.isNotEmpty &&
-          userName.isNotEmpty &&
+          username.isNotEmpty &&
           bio.isNotEmpty) {
         final UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
@@ -53,7 +53,7 @@ class AuthMethods {
         CustomUser user = CustomUser(
             email: email,
             uid: cred.user!.uid,
-            userName: userName,
+            username: username,
             bio: bio,
             followers: [],
             following: [],

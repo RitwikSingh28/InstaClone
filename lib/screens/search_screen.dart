@@ -43,7 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
               future: FirebaseFirestore.instance
                   .collection('users')
                   .where(
-                    'userName',
+                    'username',
                     isGreaterThanOrEqualTo: _controller.text,
                   )
                   .get(),

@@ -41,7 +41,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     String res = await AuthMethods().signUpUser(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
-        userName: _usernameController.text.trim(),
+        username: _usernameController.text.trim(),
         bio: _bioController.text.trim(),
         file: _image!);
 

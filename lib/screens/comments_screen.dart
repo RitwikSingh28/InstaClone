@@ -76,7 +76,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   child: TextField(
                     controller: _controller,
                     decoration: InputDecoration(
-                      hintText: "Comment as ${user.userName}",
+                      hintText: "Comment as ${user.username}",
                       border: InputBorder.none,
                     ),
                   ),
@@ -88,7 +88,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                       widget.snap['postId'].toString(),
                       _controller.text.trim(),
                       user.uid,
-                      user.userName,
+                      user.username,
                       user.photoUrl);
 
                   if (res == "success") {

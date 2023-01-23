@@ -68,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           )
         : Scaffold(
             appBar: AppBar(
-              title: Text(userData['userName']),
+              title: Text(userData['username']),
               backgroundColor: mobileBackgroundColor,
             ),
             body: ListView(
@@ -140,7 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           top: 15,
                         ),
                         child: Text(
-                          userData['userName'],
+                          userData['username'],
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),

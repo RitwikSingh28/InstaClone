@@ -4,7 +4,7 @@ class CustomUser {
   final String email;
   final String uid;
   final String photoUrl;
-  final String userName;
+  final String username;
   final String bio;
   final List followers;
   final List following;
@@ -13,7 +13,7 @@ class CustomUser {
       {required this.email,
       required this.uid,
       required this.photoUrl,
-      required this.userName,
+      required this.username,
       required this.bio,
       required this.followers,
       required this.following});
@@ -22,7 +22,7 @@ class CustomUser {
     return {
       "email": email,
       "uid": uid,
-      "userName": userName,
+      "username": username,
       "photoUrl": photoUrl,
       "bio": bio,
       "followers": followers,
@@ -40,6 +40,6 @@ class CustomUser {
         bio: snapshot['bio'],
         followers: snapshot['followers'],
         following: snapshot['following'],
-        userName: snapshot['userName']);
+        username: snapshot['username']);
   }
 }
